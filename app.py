@@ -2,19 +2,11 @@ import pymongo
 from json2html import *
 
 from flask import Flask, request, jsonify
-from urllib.parse import urlparse
-import requests
-import json
-import re
-import os
-import threading, queue, time
+
 
 db = pymongo.MongoClient(
     "mongodb+srv://doadmin:476Aa13F80pyQV5s@adlib-024293e9.mongo.ondigitalocean.com/admin?tls=true&authSource=admin&replicaSet=adlib")[
     "admin"]
-
-q = queue.Queue()
-task_status = []
 
 app = Flask(__name__)
 
