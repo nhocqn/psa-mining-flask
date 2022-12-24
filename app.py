@@ -16,7 +16,7 @@ def home():
         page = int(request.args.get('page'))
     except:
         pass
-    page_limit=400
+    page_limit=200
     posts = db.posts.find().sort("_id", -1).skip(page_limit * (page - 1)).limit(page_limit)
     html='''
     <html lang="en" id="facebook" class="">
