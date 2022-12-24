@@ -15,27 +15,11 @@ app = Flask(__name__)
 def home():
     posts = db.posts.find().sort("_id", -1)
 
-    content = """
-    <style>
-    .boxcontainer{
-  display: grid;                          /* Use grid type layout to get columns */
-  grid-template-columns: 1fr 1fr 1fr 1fr; /* Proportions of the columns */
-  gap: 20px;                              /* Use gap here instead of margin in .box */
-}
-.box{
-  width: 100%;    /* Use 100% of each column */
-  height: 200px;  /* This can be whatever you want */
-}
-</style>
-    <div class="boxcontainer">
- """
+    content = ""
 
     for post in posts:
-        content+=""" <div class="box">"""
         content +="<p>" + json2html.convert(json=post) + "</p>"
-        content +='<p><img src="' + str(post['image_url']) + '" width="100%" ></p>'
-        content+="""</div>"""
-    content+="""</div>"""
+        content +='<p><img src="' + str(post['image_url']) + '" width="500px" ></p>'
     return content
 
 
