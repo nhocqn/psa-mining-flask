@@ -45,7 +45,7 @@ def home():
                             <div class="x2izyaf x9vkmqi xjzgg7p x13vifvy xh8yej3 xwxrfds">
                                 <div class="x6s0dn4 x9f619 x78zum5 x2lah0s x5yr21d xdj266r xkrivgy xat24cr x1gryazu xr8eajr x1dr75xp xz9dl7a xbxaen2 xsag5q8 x1u72gb5 x1n2onr6 xh8yej3 x10s2t04 x74wae x2i0hdy x18qly8q">
                                     <div class="x1fmrttk xdl72j9 x1iyjqo2 x2lah0s x1f6kntn">
-                                        <div class="x6s0dn4 x78zum5"><a class="x1hl2dhg xt0b8zv x8t9es0 x1fvot60 xxio538 xjnfcd9 xq9mrsl x1yc453h x1h4wwuj x1fcty0u x1lliihq" target="_top" href="https://www./ads/library/?source=fb-logo" style="
+                                        <div class="x6s0dn4 x78zum5"><a class="x1hl2dhg xt0b8zv x8t9es0 x1fvot60 xxio538 xjnfcd9 xq9mrsl x1yc453h x1h4wwuj x1fcty0u x1lliihq" target="_top" href="/" style="
     FONT-SIZE: 30PX !IMPORTANT;
 ">PENGUIN SECRET AGENCY
 </a>
