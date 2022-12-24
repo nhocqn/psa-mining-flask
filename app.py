@@ -33,7 +33,7 @@ def home():
     for post in posts:
         content+=""" <div class="box">"""
         content +="<p>" + json2html.convert(json=post) + "</p>"
-        content +='<p><img src="' + str(post['image_url']) + '" width="500px" ></p>'
+        content +='<p><img src="' + str(post['image_url']) + '" width="100%" ></p>'
         content+="""</div>"""
     content+="""</div>"""
     return content
