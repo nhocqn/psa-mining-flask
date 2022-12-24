@@ -687,7 +687,7 @@ def home():
    .playpause {
     background-image: url(http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png);
     background-repeat: no-repeat;
-    width: 10%;
+    width: 15%;
     height: 15%;
     position: absolute;
     left: 0%;
