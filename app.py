@@ -440,18 +440,7 @@ def home():
                                 </div>
                                 <div class="x6s0dn4 x78zum5 xdt5ytf xl56j7k x1n2onr6 x1ja2u2z x19gl646 xbumo9q">
                                     <div class="x9f619 x1n2onr6 x1ja2u2z"></div>
-                                    <div class="x9f619 x1xzczws x7wzq59 x78zum5 xl56j7k xh8yej3 x6cuj84 x1drgs3w x2izyaf x1hq5gj4"
-                                         style="top:177px;z-index:auto">
-                                        <div class="x78zum5 xl56j7k xh8yej3">
-                                            <div class="xdbano7">
-                                                <div class="x6s0dn4 x78zum5 x2lah0s xieb3on x1u72gb5 xbxaen2 x19olofe x15axx70 x1bejk3 x1xqjhkw xwk5p3q x80c8k8 x1h2tt1j">
-                                                    <div aria-level="3"
-                                                         class="x8t9es0 x1uxerd5 x1xlr1w8 xrohxju x4hq6eo xq9mrsl x1yc453h x1h4wwuj xeuugli"
-                                                         role="heading">Launched in <span>December 2022</span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="xfaw0n xuwq0e2 xexx8yu x1pi30zi x18d9i69 x1swvt13 x16md763 x1h2tt1j"></div>
                                     <div class="x1dr75xp xh8yej3 x16md763">
                                         <div class="xrvj5dj xdq2opy xexx8yu xbxaen2 x18d9i69 xbbxn1n xdoe023 xbumo9q x143o31f x7sq92a x1crum5w">
@@ -667,7 +656,7 @@ def home():
                                                                 <div class="x6ikm8r x10wlt62">
                                                                     <div class="_7jyr _a25-"><span class="x8t9es0 xw23nyj xo1l8bm x63nzvj x108nfp6 xq9mrsl x1h4wwuj xeuugli"><div tabindex="0" role="button"><div class="_4ik4 _4ik5" style="line-height:16px;max-height:112px;-webkit-line-clamp:7"><div style="white-space:pre-wrap">{post['description']}</div></div></div></span>
                                                                     </div>
-                                                                    <a class="x1hl2dhg x1lku1pv x8t9es0 x1fvot60 xxio538 xjnfcd9 xq9mrsl x1yc453h x1h4wwuj x1fcty0u x1lliihq" target="_blank" href="">
+                                                                    <a class="x1hl2dhg x1lku1pv x8t9es0 x1fvot60 xxio538 xjnfcd9 xq9mrsl x1yc453h x1h4wwuj x1fcty0u x1lliihq" target="_blank" href="{post['link_url']}">
                                                                         <div class="x1ywc1zp x78zum5 xl56j7k x1e56ztr x1277o0a">
                                                                             <img alt="" class="x1ll5gia x19kjcj4 xh8yej3" referrerpolicy="origin-when-cross-origin" src="{post['image_url']}">
                                                                         </div>
