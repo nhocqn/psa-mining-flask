@@ -18,7 +18,6 @@ def home():
         pass
     page_limit=100
     posts = db.posts.find().sort("_id", -1).skip(page_limit * (page - 1)).limit(page_limit)
-    posts_count = db.posts.find().count()
     html='''
     <html lang="en" id="facebook" class="">
 <head>
