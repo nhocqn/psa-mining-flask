@@ -16,7 +16,7 @@ def home():
         page = int(request.args.get('page'))
     except:
         pass
-    page_limit=100
+    page_limit=400
     posts = db.posts.find().sort("_id", -1).skip(page_limit * (page - 1)).limit(page_limit)
     html='''
     <html lang="en" id="facebook" class="">
@@ -539,6 +539,9 @@ def home():
     </body>
     </html>'''
     for post in posts:
+        display_video = ""
+        if post['display_format'] =='image': display_video = "None"
+
         html+=f'''
 <div class="xh8yej3">
                                                 <div class="_7jvw x2izyaf x1hq5gj4 x1d52u69">
@@ -659,6 +662,7 @@ def home():
                                                                     <a class="x1hl2dhg x1lku1pv x8t9es0 x1fvot60 xxio538 xjnfcd9 xq9mrsl x1yc453h x1h4wwuj x1fcty0u x1lliihq" target="_blank" href="{post['link_url']}">
                                                                         <div class="x1ywc1zp x78zum5 xl56j7k x1e56ztr x1277o0a">
                                                                             <img alt="" class="x1ll5gia x19kjcj4 xh8yej3" referrerpolicy="origin-when-cross-origin" src="{post['image_url']}">
+                                                                            <div class="playpause" style="display:{display_video}"></div>
                                                                         </div>
                                                                         
                                                                     </a></div>
@@ -670,6 +674,33 @@ def home():
                                                     </div>
                                                 </div>
                                             </div>'''
+    html+='''<style>.video {
+        width: 100%;
+        border: 1px solid black;
+    }
+    .wrapper{
+        display:table;
+        width:auto;
+        position:relative;
+        width:50%;
+    }
+   .playpause {
+    background-image: url(http://png-4.findicons.com/files/icons/2315/default_icon/256/media_play_pause_resume.png);
+    background-repeat: no-repeat;
+    width: 10%;
+    height: 15%;
+    position: absolute;
+    left: 0%;
+    right: 0%;
+    top: 100px;
+    bottom: 0%;
+    margin: auto;
+    background-size: contain;
+    background-position: center;
+    border: 10px solid #000;
+    border-radius: 50%;
+}
+</style>'''
     html+=html_suffix
     return html
 
