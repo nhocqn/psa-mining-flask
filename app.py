@@ -9,6 +9,11 @@ db = pymongo.MongoClient(
 
 app = Flask(__name__)
 
+@app.route('/block_a_page', methods=['GET'])
+def block_a_page():
+    page_id = int(request.args.get('page_id'))
+    db.blockedpages.insert_one({'page_id': page_id})
+    return 'ok'
 @app.route('/', methods=['GET'])
 def home():
     page = 1
@@ -16,8 +21,21 @@ def home():
         page = int(request.args.get('page'))
     except:
         pass
+    sort_by = "_id"
+    try:
+        sort_by = str(request.args.get('sort_by'))
+    except:
+        pass
     page_limit=200
-    posts = db.posts.find().sort("_id", -1).skip(page_limit * (page - 1)).limit(page_limit)
+    blocked_page_id = db.blockedpages.find({}).distinct('page_id')
+    posts = db.posts\
+        .find({''
+               'num_ads_running':{'$gte':7 },
+               'page_id':{'$nin' : blocked_page_id}})\
+        .sort(sort_by, -1)\
+        .skip(page_limit * (page - 1))\
+        .limit(page_limit)
+
     html='''
     <html lang="en" id="facebook" class="">
 <head>
@@ -415,9 +433,9 @@ def home():
                                             <div class="x2izyaf x1xmf6yo x1dr75xp xh8yej3 x19gl646">
                                                 <div class="x2izyaf x78zum5 x1q0g3np x1a02dak x1u72gb5 xbxaen2">
                                                     <div class="x9f619 x1lliihq x193iq5w xh8yej3 x1e56ztr">
-                                                        <div class="xeuugli x2lwn1j xuk3077 x78zum5 xdt5ytf x1iyjqo2 xozqiw3 xavht8x">
+                                                        <div  class="xeuugli x2lwn1j xuk3077 x78zum5 xdt5ytf x1iyjqo2 xozqiw3 xavht8x">
                                                             <div class="xeuugli x2lwn1j x1cy8zhl x78zum5 x1q0g3np x1iyjqo2 xozqiw3 x19lwn94">
-                                                                <div class="x3nfvp2 x193iq5w xxymvpz" role="none">
+                                                                <div  onclick="location.href = '/?sort_by=num_ads_running'" class="x3nfvp2 x193iq5w xxymvpz" role="none">
                                                                     <div aria-busy="false"
                                                                          class="x1i10hfl xjqpnuy xa49m3k xqeqjp1 x2hbi6w x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli x16tdsg8 xggy1nq x1ja2u2z x1t137rt x6s0dn4 x1ejq31n xd10rxx x1sy0etr x17r0tee x3nfvp2 xdl72j9 x1q0g3np x2lah0s x193iq5w x1n2onr6 x1hl2dhg x87ps6o xxymvpz xlh3980 xvmahel x1lku1pv xhk9q7s x1otrzb0 x1i1ezom x1o6z2jb xo1l8bm x108nfp6 xas4zb2 x1y1aw1k xwib8y2 x1pi30zi x1ye3gou"
                                                                          role="button" tabindex="0"><span
@@ -427,11 +445,26 @@ def home():
                                                                             class="x3nfvp2 x120ccyz x1heor9g x2lah0s x1c4vz4f"
                                                                             role="presentation"><div class="xtwfq29"
                                                                                                      style="width:16px;height:16px;-webkit-mask-image:var(--sf-img-13);-webkit-mask-size:26px 1142px;-webkit-mask-position:0px -568px"></div></div><div
-                                                                            class="x8t9es0 x1fvot60 xxio538 x1heor9g xuxw1ft x6ikm8r x10wlt62 xlyipyv x1h4wwuj x1pd3egz xeuugli">Filters</div></div></div></span>
+                                                                            class="x8t9es0 x1fvot60 xxio538 x1heor9g xuxw1ft x6ikm8r x10wlt62 xlyipyv x1h4wwuj x1pd3egz xeuugli">Most Popular</div></div></div></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div  onclick="location.href = '/?sort_by=_id'" class="x3nfvp2 x193iq5w xxymvpz" role="none">
+                                                                    <div aria-busy="false"
+                                                                         class="x1i10hfl xjqpnuy xa49m3k xqeqjp1 x2hbi6w x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli x16tdsg8 xggy1nq x1ja2u2z x1t137rt x6s0dn4 x1ejq31n xd10rxx x1sy0etr x17r0tee x3nfvp2 xdl72j9 x1q0g3np x2lah0s x193iq5w x1n2onr6 x1hl2dhg x87ps6o xxymvpz xlh3980 xvmahel x1lku1pv xhk9q7s x1otrzb0 x1i1ezom x1o6z2jb xo1l8bm x108nfp6 xas4zb2 x1y1aw1k xwib8y2 x1pi30zi x1ye3gou"
+                                                                         role="button" tabindex="0"><span
+                                                                            class="x8t9es0 x1fvot60 xxio538 x1heor9g xq9mrsl x1h4wwuj x1pd3egz xeuugli xh8yej3"><div
+                                                                            class="x78zum5"><div
+                                                                            class="xeuugli x2lwn1j x6s0dn4 x78zum5 x1q0g3np x1iyjqo2 xozqiw3 x19lwn94 x1hc1fzr x13dflua x6o7n8i xxziih7 x12w9bfk xl56j7k xh8yej3"><div
+                                                                            class="x3nfvp2 x120ccyz x1heor9g x2lah0s x1c4vz4f"
+                                                                            role="presentation"><div class="xtwfq29"
+                                                                                                     style="width:16px;height:16px;-webkit-mask-image:var(--sf-img-13);-webkit-mask-size:26px 1142px;-webkit-mask-position:0px -568px"></div></div><div
+                                                                            class="x8t9es0 x1fvot60 xxio538 x1heor9g xuxw1ft x6ikm8r x10wlt62 xlyipyv x1h4wwuj x1pd3egz xeuugli">Newest</div></div></div></span>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -540,6 +573,9 @@ def home():
     </html>'''
     for post in posts:
         display_video = ""
+        query = ""
+        if 'query' in post:
+            query = post['query']
         if post['display_format'] =='image': display_video = "None"
 
         html+=f'''
@@ -613,8 +649,12 @@ def home():
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="x3nfvp2 x1e56ztr"><span class="x6s0dn4 x78zum5"><span class="x8t9es0 xw23nyj xo1l8bm x63nzvj x108nfp6 xq9mrsl x1h4wwuj xeuugli">This ad has multiple versions</span><div class="x1rg5ohu x67bb7w"><div class="x8t9es0 xw23nyj x63nzvj x108nfp6 xq9mrsl x1h4wwuj x1fcty0u x78zum5 xl56j7k x6s0dn4"><span>&ZeroWidthSpace;</span><div class="xjm9jq1 x78zum5 xl56j7k x6s0dn4"><div class="x3nfvp2 x120ccyz x4hq6eo x1i64zmx" role="presentation"><div class="xtwfq29" style="width:12px;height:12px;-webkit-mask-image:var(--sf-img-10);-webkit-mask-size:74px 260px;-webkit-mask-position:-14px -232px"></div></div></div></div></div></span>
+                                                                <div class="x3nfvp2 x1e56ztr"><span class="x6s0dn4 x78zum5"><span class="x8t9es0 xw23nyj xo1l8bm x63nzvj x108nfp6 xq9mrsl x1h4wwuj xeuugli">Page has {post['page_like_count']} likes</span><div class="x1rg5ohu x67bb7w"><div class="x8t9es0 xw23nyj x63nzvj x108nfp6 xq9mrsl x1h4wwuj x1fcty0u x78zum5 xl56j7k x6s0dn4"><span>&ZeroWidthSpace;</span><div class="xjm9jq1 x78zum5 xl56j7k x6s0dn4"><div class="x3nfvp2 x120ccyz x4hq6eo x1i64zmx" role="presentation"><div class="xtwfq29" style="width:12px;height:12px;-webkit-mask-image:var(--sf-img-10);-webkit-mask-size:74px 260px;-webkit-mask-position:-14px -232px"></div></div></div></div></div></span>
                                                                 </div>
+                                                                                                                              
+                                                                <div class="x3nfvp2 x1e56ztr"><span class="x6s0dn4 x78zum5"><span class="x8t9es0 xw23nyj xo1l8bm x63nzvj x108nfp6 xq9mrsl x1h4wwuj xeuugli">query : {query}</span><div class="x1rg5ohu x67bb7w"><div class="x8t9es0 xw23nyj x63nzvj x108nfp6 xq9mrsl x1h4wwuj x1fcty0u x78zum5 xl56j7k x6s0dn4"><span>&ZeroWidthSpace;</span><div class="xjm9jq1 x78zum5 xl56j7k x6s0dn4"><div class="x3nfvp2 x120ccyz x4hq6eo x1i64zmx" role="presentation"><div class="xtwfq29" style="width:12px;height:12px;-webkit-mask-image:var(--sf-img-10);-webkit-mask-size:74px 260px;-webkit-mask-position:-14px -232px"></div></div></div></div></div></span>
+                                                                </div>
+                                                                
                                                                 <div class="x3nfvp2 x1e56ztr">
                                                                     <div class="xt0e3qv">
                                                                         <div class="x1rg5ohu x67bb7w"><span class="x8t9es0 xw23nyj xo1l8bm x63nzvj x108nfp6 xq9mrsl x1h4wwuj xeuugli">ID: {post['post_id']}</span>
@@ -645,10 +685,13 @@ def home():
                                                                                     <div class="x1rg5ohu">
                                                                                         <div>
                                                                                             <div class="x1rg5ohu x67bb7w">
-                                                                                                <a class="xt0psk2 x1hl2dhg xt0b8zv x8t9es0 x1fvot60 xxio538 xjnfcd9 xq9mrsl x1yc453h x1h4wwuj x1fcty0u" target="_blank" href="https://www.facebook.com/{post['page_id']}/"><span class="x8t9es0 x1fvot60 xxio538 x108nfp6 xq9mrsl x1h4wwuj x117nqv4 xeuugli">{post['page_name']}</span></a>
+                                                                                                <a class="xt0psk2 x1hl2dhg xt0b8zv x8t9es0 x1fvot60 xxio538 xjnfcd9 xq9mrsl x1yc453h x1h4wwuj x1fcty0u" target="_blank" href="https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&search_type=page&media_type=all&view_all_page_id={post['page_id']}"><span class="x8t9es0 x1fvot60 xxio538 x108nfp6 xq9mrsl x1h4wwuj x117nqv4 xeuugli">{post['page_name']}</span></a>
+                                                                                                
+                                                                                                
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
+                                                                                    <a target="_blank" href="/block_a_page?page_id={post['page_id']}"><span>Hide all ads from this page</span></a>
                                                                                     <div class="_8nrv"><span class="x8t9es0 xw23nyj xo1l8bm x63nzvj x6lvj10 xq9mrsl x1h4wwuj xeuugli"><div class="_4ik4 _4ik5" style="-webkit-line-clamp:2"><div><span class="x14vqqas x117nqv4">Sponsored</span><span class="x117nqv4"></span></div></div></span>
                                                                                     </div>
                                                                                 </div>
@@ -703,12 +746,6 @@ def home():
 </style>'''
     html+=html_suffix
     return html
-
-
-# 'Out for Delivery', 'Take Off', 'Order Created', 'Arrived Destination', 'delivered', 'Order Shipped', 'Processing', 'Delivered'
-
-
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=4000, debug=True)
