@@ -21,24 +21,33 @@ def home():
         page = int(request.args.get('page'))
     except:
         pass
-    sort_by = "_id"
+    sort_by = '_id'
     try:
         sort_by = str(request.args.get('sort_by'))
     except:
         pass
     page_limit=200
     blocked_page_id = db.blockedpages.find({}).distinct('page_id')
-    posts = db.posts\
-        .find({''
-               'num_ads_running':{'$gte':7 },
-               'page_id':{'$nin' : blocked_page_id}})\
-        .sort(sort_by, -1)\
-        .skip(page_limit * (page - 1))\
-        .limit(page_limit)
+    if sort_by =='num_ads_running':
+        posts = db.posts \
+            .find({''
+                   'num_ads_running': {'$gte': 7},
+                   'page_id': {'$nin': blocked_page_id}}) \
+            .sort('num_ads_running', -1) \
+            .skip(page_limit * (page - 1)) \
+            .limit(page_limit)
+    else:
+        posts = db.posts\
+            .find({''
+                   'num_ads_running':{'$gte':7 },
+                   'page_id':{'$nin' : blocked_page_id}})\
+            .sort('_id', -1)\
+            .skip(page_limit * (page - 1))\
+            .limit(page_limit)
 
     html='''
     <html lang="en" id="facebook" class="">
-<head>
+    <head>
     <meta charset="utf-8">
     <meta name="referrer" content="origin-when-crossorigin" id="meta_referrer">
 
