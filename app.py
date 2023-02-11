@@ -31,12 +31,12 @@ def home():
 
     page_limit=100
     blocked_page_id = db.blockedpages.find({}).distinct('page_id')
-
     if search is None:
         posts = db.posts \
             .find({''
-                   'num_ads_running': {'$gte': 7},
-                   'page_id': {'$nin': blocked_page_id}}) \
+                   'num_ads_running': {'$gte': 1},
+                   # 'page_id': {'$nin': blocked_page_id}
+                   }) \
             .sort(sort_by, -1) \
             .skip(page_limit * (page - 1)) \
             .limit(page_limit)
@@ -44,8 +44,8 @@ def home():
         search = '"'+search +'"'
         posts = db.posts \
             .find({''
-                   'num_ads_running': {'$gte': 7},
-                   'page_id': {'$nin': blocked_page_id},
+                   'num_ads_running': {'$gte': 1},
+                   # 'page_id': {'$nin': blocked_page_id},
                    '$text' : {'$search': search}
                    }) \
             .sort(sort_by, -1) \
